@@ -32,11 +32,12 @@ export default {
 //  omettre
   methods: {
     getIssues() {
-      axios.get('https://api.github.com/repos/diveintocode-corp/vue_seriese_api/issues',
+      axios.get(`${process.env.VUE_APP_GITHUB_ENDPOINT}`,
           {
             headers: {
               'Accept': 'application/vnd.github.v3+json',
               'Content-Type':'application/json',
+              'Authorization': `token ${process.env.VUE_APP_GITHUB_TOKEN}`
             },
           },
         )
@@ -44,7 +45,10 @@ export default {
           // res.dataに変更
           this.issues = res.data;
       })
-    }
+    }, 
+    created() {
+    this.getIssues();
+  }
   }
 }
 </script>
